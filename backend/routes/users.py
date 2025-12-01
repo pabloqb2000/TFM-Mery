@@ -18,7 +18,7 @@ with open(DATA_PATH, "r", encoding="utf-8") as f:
     for user in tqdm(users_db.values(), "Processing users"):
         folder = get_user_folder_name(User(**user))
         user["files"] = (
-            os.listdir(folder)
+            [file for file in os.listdir(folder) if not file.endswith(".docx") and not file.endswith(".doc")]
             if os.path.isdir(folder)
             else []
         )
